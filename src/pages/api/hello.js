@@ -1,14 +1,17 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// Import needed libraries from RSS-Parser and Supabase
+
 import Parser from 'rss-parser';
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { createClient } from '@supabase/supabase-js'
+
+// Define necessary variables for RSS-Parser and Supabase
 
 const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 let parser = new Parser();
+
+// Insert links of RSS feeds to be parsed as an object
 
 let feedLinks = {"https://www.elnuevosiglo.com.co/rss.xml":"Colombia",
 "https://www.metroworldnews.com/arc/outboundfeeds/rss/?outputType=xml": "Colombia",
@@ -31,6 +34,8 @@ let feedLinks = {"https://www.elnuevosiglo.com.co/rss.xml":"Colombia",
 "https://larazon.pe/feed/": "Peru"
 };
 
+// Asynchronous function that parses multiple RSS feeds and maps all relevant items into an array
+
 const AllFeeds = async (URL, Country) => {
   
   const results = [];
@@ -45,22 +50,10 @@ const AllFeeds = async (URL, Country) => {
   return results;
 };
 
-// export default async function handler(req, res) {
-//
-//  const allPromises = [];
-//
-//  for (let URL in feedLinks) {
-//    const Country = feedLinks[URL];
-//    allPromises.push(AllFeeds(URL,Country));
-//  };
-//
-//  const data = await Promise.all(allPromises)
-//  res.status(200).json(data)
-// }
+// Asynchronous function that loops the various internal arrays withing the "results" array, 
+// then pushes values to a Supabase database
 
   export default async function handler(req, res) {
-  
-    const allPromises = [];
     
     for (let URL in feedLinks) {
       const Country = feedLinks[URL];
@@ -69,22 +62,25 @@ const AllFeeds = async (URL, Country) => {
       for (let i = 0; i < results.length; i++) {
         const siteTitle = results[i][0];
         const country = results[i][1];
-        const newsItemTitle = results[i][2];
-        const newsItemPublished = results[i][3];
-  
-        // Insert the data into the Supabase table
-        const { data, error } = await supabase
-          .from('ParsedArticles')
-          .insert([{ rss_feed_name: siteTitle, 
-            country: country,
-            article_headline: newsItemTitle, 
-            article_published: newsItemPublished }]);
-  
-        if (error) {
-          console.error(error);
+        const newsItemTitleArray = results[i][2];
+        const newsItemPublishedArray = results[i][3];
+     
+          for (let j = 0; j < newsItemTitleArray.length; j++) {
+            const newsItemTitle = newsItemTitleArray[j];
+            const newsItemPublished = new Date (newsItemPublishedArray[j]);
+
+            const { data, error } = await supabase
+            .from('ParsedArticles')
+            .insert([{ rss_feed_name: siteTitle, 
+              country: country,
+              article_headline: newsItemTitle, 
+              article_published: newsItemPublished }]);
+
+              if (error) {
+                console.error(error);
+              }
+            }
+          }
         }
-      }
-    };
-  
-    res.status(200).json({ message: 'Data inserted into Supabase' });
-  };
+        res.status(200).json({ message: 'Data inserted into Supabase' });        
+      };
