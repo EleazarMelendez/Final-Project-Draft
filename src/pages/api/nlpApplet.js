@@ -1,14 +1,27 @@
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+const currentTimestamp = new Date();
+const timestamp = new Date(currentTimestamp.getTime() - (1 * 60 * 60 * 1000)).toISOString()
+
+export default async function Last36(req, res) {
+
+let { data, error } = await supabase
+  .from('ParsedArticles')
+  .select('id,country,article_headline')
+  .gte('article_published', timestamp)
+
+const uniqueID = data.map(obj => obj.id);
+const headlines = data.map(obj => obj.article_headline);
+
 const natural = require('natural');
 const tokenizer = new natural.AggressiveTokenizerEs();
 const TfIdf = natural.TfIdf;
 
 const tfidf = new TfIdf();
-
-const headlines = [
-    'El presidente anuncia nuevas medidas económicas',
-    'La economía se contrae por segundo trimestre consecutivo',
-    'El gobierno presenta el plan de recuperación económica'
-  ];
   
   headlines.forEach(headline => {
     tfidf.addDocument(tokenizer.tokenize(headline));
@@ -28,7 +41,21 @@ headlines.forEach((headline, i) => {
     }
   });
 
-  similarities.push(scores);
+  similarities.push(scores.reduce((accumulator, currentValue) => accumulator + currentValue));
 });
 
 console.log(similarities);
+console.log(headlines);
+
+
+
+const result = similarities.reduce((obj, key, index) => {
+  obj[key] = values[index];
+  return obj;
+}, {});
+
+console.log(result);
+
+res.status(200).json({ message: 'okthen' }); 
+
+}
