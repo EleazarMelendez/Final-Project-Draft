@@ -1,31 +1,53 @@
+// Imports Supabase hook >>
+
 import { createClient } from '@supabase/supabase-js'
+
+// Defines values used in Supabase hook >>
 
 const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-const currentTimestamp = new Date();
-const timestamp = new Date(currentTimestamp.getTime() - (1 * 60 * 60 * 1000)).toISOString()
+//  Create a constant that represents the time exactly 36 hours ago >>
 
-export default async function Last36(req, res) {
+const currentTimestamp = new Date();
+const timestampMinus36 = new Date(currentTimestamp.getTime() - (36 * 60 * 60 * 1000)).toISOString()
+
+// Creates a constat that represents the country to be filtered by. (Right now, static. Later will be based on user input.)
+
+const country = 'Peru'
+
+// Async function to contain all the code needed to implement NLP on desired text
+
+export default async function nlpProcessing (req, res) {
+
+// Imports necesary fields from Supabase database, using time- and country- based filter
 
 let { data, error } = await supabase
   .from('ParsedArticles')
   .select('id,country,article_headline')
-  .gte('article_published', timestamp)
+  .gte('article_published', timestampMinus36)
+  .eq('country', country)
 
+// Maps the imported headlines an UUID into two different arrays
+  
 const uniqueID = data.map(obj => obj.id);
 const headlines = data.map(obj => obj.article_headline);
+
+// Calls necessary functions (tokenizer and TF-IDF algorithm) from 'Natural' JS library >>
 
 const natural = require('natural');
 const tokenizer = new natural.AggressiveTokenizerEs();
 const TfIdf = natural.TfIdf;
-
 const tfidf = new TfIdf();
-  
+
+// tokenizes each headline and adds it to the list of strings to be analized using TF-IDF algotiyhm >>
+
   headlines.forEach(headline => {
     tfidf.addDocument(tokenizer.tokenize(headline));
   });
+
+// Runs a nested loop that compares each tokenized headline against each other tokenized headlinem then creates a long array for each headline, that determines how alike headlines are to each other based on the TF-IDF algorithm >>
 
   const similarities = [];
 
@@ -41,21 +63,22 @@ headlines.forEach((headline, i) => {
     }
   });
 
+// Adds the TF-IDF "score" given to each headline. By default this will mean news articles with repeating, yet distinctive language will obtain a higher value >>
+
   similarities.push(scores.reduce((accumulator, currentValue) => accumulator + currentValue));
 });
 
-console.log(similarities);
-console.log(headlines);
+// Creates a "result" object, where each headline's uuid is mapped as key, and the corresponding TF-IDF score is the value >>
 
+const result = {};
 
-
-const result = similarities.reduce((obj, key, index) => {
-  obj[key] = values[index];
-  return obj;
-}, {});
-
-console.log(result);
-
-res.status(200).json({ message: 'okthen' }); 
-
+for (let i = 0; i < uniqueID.length; i++) {
+  result[uniqueID[i]] = similarities[i];
 }
+console.log(result);
+ 
+return result;
+
+} 
+
+export { nlpProcessing };
