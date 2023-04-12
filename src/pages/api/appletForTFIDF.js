@@ -8,10 +8,10 @@ const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-//  Create a constant that represents the time exactly 36 hours ago >>
+//  Create a constant that represents the time exactly 24 hours ago >>
 
 const currentTimestamp = new Date();
-const timestampMinus36 = new Date(currentTimestamp.getTime() - (36 * 60 * 60 * 1000)).toISOString()
+const timestampMinus24 = new Date(currentTimestamp.getTime() - (24 * 60 * 60 * 1000)).toISOString()
 
 // Creates a constat that represents the country to be filtered by. (Right now, static. Later will be based on user input.)
 
@@ -26,7 +26,7 @@ export default async function nlpProcessing (req, res) {
 let { data, error } = await supabase
   .from('ParsedArticles')
   .select('id,country,article_headline')
-  .gte('article_published', timestampMinus36)
+  .gte('article_published', timestampMinus24)
   .eq('country', country)
 
 // Maps the imported headlines an UUID into two different arrays
@@ -59,13 +59,13 @@ headlines.forEach((headline, i) => {
       scores.push(0);
     } else {
       const score = tfidf.tfidf(tokenizer.tokenize(headline), j);
-      scores.push(score);
+      scores.push(score/headline.length);
     }
   });
 
 // Adds the TF-IDF "score" given to each headline. By default this will mean news articles with repeating, yet distinctive language will obtain a higher value >>
 
-  similarities.push(scores.reduce((accumulator, currentValue) => accumulator + currentValue));
+  similarities.push(scores.reduce((accumulator, currentValue) => accumulator + currentValue)*100/scores.length);
 });
 
 // Creates a "result" object, where each headline's uuid is mapped as key, and the corresponding TF-IDF score is the value >>

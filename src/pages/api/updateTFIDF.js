@@ -1,4 +1,4 @@
-import { nlpProcessing } from './nlpApplet';
+import { nlpProcessing } from './appletForTFIDF';
 
 import { createClient } from '@supabase/supabase-js'
 
