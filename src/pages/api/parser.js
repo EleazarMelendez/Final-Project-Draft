@@ -9,13 +9,13 @@ import { feedLinks } from './rssFeedLinks';
 
 // Define necessary variables for RSS-Parser and Supabase
 
-const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
+const suspabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 let parser = new Parser();
 
-// Asynchronous function that parses multiple RSS feeds and maps all relevant items into an array
+// Defines AllFeeds(), an asynchronous function that parses multiple RSS feeds and maps all relevant items into an array
 
 const AllFeeds = async (URL, Country) => {
   
@@ -34,7 +34,7 @@ const AllFeeds = async (URL, Country) => {
 // Asynchronous function that loops the various internal arrays withing the "results" array, 
 // then pushes values to a Supabase database
 
-  export default async function handler(req, res) {
+  export default async function ParsingFunction(req, res) {
     
     for (let URL in feedLinks) {
       const Country = feedLinks[URL];
@@ -63,5 +63,7 @@ const AllFeeds = async (URL, Country) => {
             }
           }
         }
-        res.status(200).json({ message: 'Data inserted into Supabase' });        
+        res.status(200).json(Parsed article data inserted into Supabase);        
       };
+
+      export { ParsingFunction };

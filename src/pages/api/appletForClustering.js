@@ -29,7 +29,7 @@ let { data, error } = await supabase
   .from('ParsedArticles')
   .select('id,country,article_headline')
   .gte('article_published', timestampMinus24)
-  .gt('tfidf_score', 6)
+  .gt('tfidf_score', 4)
   .eq('country', country)
 
 // Maps the imported headlines an UUID into two different arrays
@@ -37,9 +37,23 @@ let { data, error } = await supabase
 const uniqueID = data.map(obj => obj.id);
 const headlines = data.map(obj => obj.article_headline);
 
-// Preprocess the headlines
-const CleanHeadlines = headlines.map(headline => {
-  return headline.toLowerCase().replace(/"/g,'').trim();
+// Preprocess and truncate the headlines
+
+let truncatedHeadlines = [];
+
+let totalLength = 0;
+for (let i = 0; i < headlines.length; i++) {
+  const headline = headlines[i];
+  if (totalLength + headline.length <= 10000) {
+    truncatedHeadlines.push(headline);
+    totalLength += headline.length;
+  } else {
+    break;
+  }
+}
+
+const CleanHeadlines = truncatedHeadlines.map(headline => {
+  return headline.toLowerCase().replace(",", " ").replace(/"/g,'').trim();
 })
 
 const response = openai.createChatCompletion({
@@ -53,7 +67,7 @@ const response = openai.createChatCompletion({
 
     [headline1: "Headline text as it appears on the dataset", Number of times the story is repeated expressed only as a number]
      
-     The dataset for the headlines is: ${headlines}`}],
+     The dataset for the headlines is: ${CleanHeadlines}`}],
      temperature : 0,
 })
 .then(async (res) => {
@@ -80,3 +94,5 @@ const response = openai.createChatCompletion({
  
 
 };
+
+export {nlpClustering};

@@ -1,3 +1,16 @@
-import { nlpClustering } from './appletForClustering';
+import { ParsingFunction } from './parser';
+import { nlpProcessing } from './appletForTFIDF';
+import { updateTFIDF } from './updateTFIDF';
+import { nlpClustering } from './appletForClustering;'
+import { nlpSummary } from './appletForSummary'
 
-console.log(response); // You can now access the `result` value here
+async function runAnalysis() {
+    await ParsingFunction();
+    await nlpProcessing();
+    await updateTFIDF();
+    await nlpClustering();
+    await nlpSummary();
+    }
+    
+    // Export the function for external use
+    export { runAnalysis };

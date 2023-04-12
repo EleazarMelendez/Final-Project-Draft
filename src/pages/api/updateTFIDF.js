@@ -25,3 +25,5 @@ for (const [id, value] of Object.entries(importedResult)) {
 
         
 };
+
+export { updateTFIDF };

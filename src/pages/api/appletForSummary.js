@@ -54,3 +54,5 @@ const response = openai.createChatCompletion({
 console.log(stringID);
 
 }
+
+export {nlpSummary};
