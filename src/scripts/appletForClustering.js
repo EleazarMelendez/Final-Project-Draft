@@ -1,10 +1,14 @@
+// Instructs configuration on how to access the .env file
+
+require('dotenv').config()
+
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
-import { createClient } from '@supabase/supabase-js'
+const { createClient } = require("@supabase/supabase-js");
 
 const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -21,7 +25,7 @@ const country = 'Peru'
 
 // Async function to contain all the code needed to implement NLP on desired text
 
-export default async function nlpClustering (req, res) {
+async function nlpClustering () {
 
 // Imports necesary fields from Supabase database, using time- and country- based filter
 
@@ -31,6 +35,8 @@ let { data, error } = await supabase
   .gte('article_published', timestampMinus24)
   .gt('tfidf_score', 4)
   .eq('country', country)
+  .order('tfidf_score',  { ascending: false });
+ 
 
 // Maps the imported headlines an UUID into two different arrays
 
@@ -44,7 +50,7 @@ let truncatedHeadlines = [];
 let totalLength = 0;
 for (let i = 0; i < headlines.length; i++) {
   const headline = headlines[i];
-  if (totalLength + headline.length <= 10000) {
+  if (totalLength + headline.length <= 9000) {
     truncatedHeadlines.push(headline);
     totalLength += headline.length;
   } else {
@@ -82,17 +88,16 @@ const response = openai.createChatCompletion({
 
   if (error) {
     console.error(insertError);
-    res.status(500).json({ error: 'Failed to insert data into Supabase table' });
   } else {
-    res.status(200).json({ message: 'Data inserted into Supabase table', data: insertedData });
+   console.log("Clusters created in Supabase table")
   }
 })
 .catch((error) => {
   console.error(error);
-  res.status(500).json({ error: 'Failed to get response from OpenAI API' });
+ console.log("Something failed");
 });
  
 
 };
 
-export {nlpClustering};
+module.exports = {nlpClustering};

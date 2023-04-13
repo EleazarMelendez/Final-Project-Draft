@@ -18,6 +18,8 @@
     "chatgpt": "^5.2.2",
     "clsx": "^1.2.1",
     "clusterfck": "^1.0.0",
+    "cobe": "^0.6.3",
+    "dotenv": "^16.0.3",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "ml-kmeans": "^6.0.0",

@@ -689,6 +689,13 @@ clusterfck@^1.0.0:
   resolved "https://registry.yarnpkg.com/clusterfck/-/clusterfck-1.0.0.tgz#6402bd84f272be171a1daafd1d0fca245561fdc4"
   integrity sha512-jExaOjYY8Zqw3mzhRAY2PEXCi7dnGr9h9PZn1L3PLKZKpxj9ForoSOuEKuvFwS86J/9uc9TsbPtCVH8OkOJpTg==
 
+cobe@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/cobe/-/cobe-0.6.3.tgz#9c3d45ae3a328b7bf709eb17b02f9caff41b22f0"
+  integrity sha512-WHr7X4o1ym94GZ96h7b1pNemZJacbOzd02dZtnVwuC4oWBaLg96PBmp2rIS1SAhUDhhC/QyS9WEqkpZIs/ZBTg==
+  dependencies:
+    phenomenon "^1.6.0"
+
 color-convert@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
@@ -887,6 +894,11 @@ dot-prop@^7.2.0:
   integrity sha512-Ol/IPXUARn9CSbkrdV4VJo7uCy1I3VuSiWCaFSg+8BdUOzF9n3jefIpcgAydvUZbTdEBZs2vEiTiS9m61ssiDA==
   dependencies:
     type-fest "^2.11.2"
+
+dotenv@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 double-bits@^1.1.0, double-bits@^1.1.1:
   version "1.1.1"
@@ -2387,6 +2399,11 @@ permutation-rank@^1.0.0:
   dependencies:
     invert-permutation "^1.0.0"
     typedarray-pool "^1.0.0"
+
+phenomenon@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/phenomenon/-/phenomenon-1.6.0.tgz#7b5b7647d0b48152cc0846994da3d92e8f6da677"
+  integrity sha512-7h9/fjPD3qNlgggzm88cY58l9sudZ6Ey+UmZsizfhtawO6E3srZQXywaNm2lBwT72TbpHYRPy7ytIHeBUD/G0A==
 
 picocolors@^1.0.0:
   version "1.0.0"

@@ -1,6 +1,10 @@
+// Instructs configuration on how to access the .env file
+
+require('dotenv').config()
+
 // Imports Supabase hook >>
 
-import { createClient } from '@supabase/supabase-js'
+const { createClient } = require("@supabase/supabase-js");
 
 // Defines values used in Supabase hook >>
 
@@ -13,13 +17,13 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 const currentTimestamp = new Date();
 const timestampMinus24 = new Date(currentTimestamp.getTime() - (24 * 60 * 60 * 1000)).toISOString()
 
-// Creates a constat that represents the country to be filtered by. (Right now, static. Later will be based on user input.)
+// Creates a constant that represents the country to be filtered by. (Right now, static. Later will be based on user input.)
 
 const country = 'Peru'
 
 // Async function to contain all the code needed to implement NLP on desired text
 
-export default async function nlpProcessing (req, res) {
+async function nlpProcessing () {
 
 // Imports necesary fields from Supabase database, using time- and country- based filter
 
@@ -76,9 +80,9 @@ for (let i = 0; i < uniqueID.length; i++) {
   result[uniqueID[i]] = similarities[i];
 }
 console.log(result);
- 
-return result;
 
+return result;
 } 
 
-export { nlpProcessing };
+
+module.exports = { nlpProcessing };

@@ -1,12 +1,20 @@
-import { nlpProcessing } from './appletForTFIDF';
+// Instructs configuration on how to access the .env file
 
-import { createClient } from '@supabase/supabase-js'
+require('dotenv').config()
+
+const { nlpProcessing } = require('./appletForTFIDF');
+
+// Imports Supabase hook >>
+
+const { createClient } = require("@supabase/supabase-js");
+
+// Defines values used in Supabase hook >>
 
 const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-export default async function updateTFIDF (res, req) {
+async function updateTFIDF () {
 const importedResult = await nlpProcessing();
   console.log(importedResult);
 
@@ -21,9 +29,8 @@ for (const [id, value] of Object.entries(importedResult)) {
     } else {
       console.log(`Updated ${importedResult.length} row(s) for id ${id}`);
     }
+  
   }
-
-        
 };
 
-export { updateTFIDF };
+module.exports = { updateTFIDF };
