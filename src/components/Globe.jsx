@@ -11,8 +11,8 @@ export default function GlobeApp() {
 
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
-      width: 800 * 2,
-      height: 800 * 2,
+      width: 700 * 2,
+      height: 700 * 2,
       phi: 4.56,
       theta: 6,
       dark: 1,
@@ -41,10 +41,10 @@ export default function GlobeApp() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="moveup">
       <canvas
         ref={canvasRef}
-        style={{ width: 800, height: 900, maxWidth: "100%", aspectRatio: 1 }}
+        style={{ width: 700, height: 700, maxWidth: "100%", aspectRatio: 1 }}
       />
     </div>
   );
