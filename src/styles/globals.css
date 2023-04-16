@@ -9,13 +9,16 @@ body {
     #171819 75%
   );
   background-size: 10px 10px;
-  font-family: "Barlow", sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   justify-content: center;
   align-items: center;
 }
 
+.h1 {
+font-size: 24px;
+}
 .moveup {
-  margin-top: -60px;
+  margin-top: -75px;
 }
 
 .top-title {
@@ -38,7 +41,7 @@ body {
   color: white;
   text-decoration: none;
   font-size: 14px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   letter-spacing: 2px;
   -webkit-font-smoothing: antialiased;
 }
@@ -268,6 +271,7 @@ body {
 .card {
   background: rgba(0, 0, 0, 0.5);
   box-shadow: inset 0 0 10px #05C7F2;
+  font-family: 'Courier New', Courier, monospace;
   clip-path: polygon(0% 40px, 40px 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0px 100%);
 }
 .card .card_title {
@@ -327,16 +331,17 @@ Styles for glitching text */
 .wrapper {
   width: 100%;
   height: 100%;
-  padding:10px;
+  margin: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .glitch {
   color: white;
   position: relative;
-  font-size: 30px;
+  font-size: 24px;
 }
 .glitch::before, .glitch::after {
   color: white;

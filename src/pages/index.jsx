@@ -20,7 +20,7 @@ export default function Home() {
         <Col xs={2}>
         <CountryButtons />
         </Col>
-        <Col xs={6} className="moveup">
+        <Col xs={6} >
           <GlobeApp />
         </Col>
         <Col xs={4}>

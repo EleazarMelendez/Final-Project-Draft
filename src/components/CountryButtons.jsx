@@ -1,8 +1,9 @@
-export default function CountryButtons() {
+export default function CountryButtons({ onClick }) {
   return (
-    <div>
+    <div class="moveup">
       <div class="btn-cont">
-        <a class="btn" href="#">
+        <a 
+        class="btn" href="#">
           Argentina
           <span class="line-1"></span>
           <span class="line-2"></span>
