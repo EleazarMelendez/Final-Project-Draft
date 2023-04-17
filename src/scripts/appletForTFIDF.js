@@ -19,11 +19,11 @@ const timestampMinus24 = new Date(currentTimestamp.getTime() - (24 * 60 * 60 * 1
 
 // Creates a constant that represents the country to be filtered by. (Right now, static. Later will be based on user input.)
 
-const country = 'Peru'
+// const country = 'Peru'
 
 // Async function to contain all the code needed to implement NLP on desired text
 
-async function nlpProcessing () {
+async function nlpProcessing (country) {
 
 // Imports necesary fields from Supabase database, using time- and country- based filter
 

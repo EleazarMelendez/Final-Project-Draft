@@ -7,24 +7,23 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ProgressBar from "@/components/ProgressBar";
 import ContentCards from "@/components/ContentCards";
 import MainHeader from "@/components/MainHeader";
+import Modal from "@/components/Modal";
 
 export default function Home() {
   return (
     <Container fluid>
       <Row>
-        <Col>
-          <MainHeader />
-        </Col>
+        <Col xs={1}  > </Col>
+        <Col xs={10}  > <MainHeader />
+        <ProgressBar /></Col>
+          <Col xs={1}  > </Col>
       </Row>
       <Row>
-        <Col xs={2}>
-        <CountryButtons />
-        </Col>
-        <Col xs={6} >
+        <Col xs={8} >
+          <CountryButtons />
           <GlobeApp />
         </Col>
         <Col xs={4}>
-          <ProgressBar />
           <ContentCards />
         </Col>
       </Row>

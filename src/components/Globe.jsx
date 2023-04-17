@@ -70,7 +70,7 @@ export default function GlobeApp()
           
           <div className="moveup" style={{ 
             width: '100%', 
-          maxWidth: 700, 
+          maxWidth: 950, 
           aspectRatio: 1,  
           position: 'relative', }}>
 

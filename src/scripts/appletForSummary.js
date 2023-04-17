@@ -14,9 +14,8 @@ const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-let country = "Peru"
 
-async function nlpSummary () {
+async function nlpSummary (country) {
   let { data, error } = await supabase
   .from('ClusteredArticles')
   .select('id,article_cluster')
