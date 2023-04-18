@@ -27,9 +27,28 @@ async function nlpSummary (country) {
 
 const response = openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{role: "user", content: `Below are a list of news headlines, including the frequency a particular news topic was written
-    about in the last 24 hours by the newspapers in ${country}. Write a conversational English-language summary (not a list) suitable for a 15-year-old of the most popular topics.
-    Pick no more than six topics. If there are more than six topics with the same popularity, pick the topics at random.
+    messages: [{role: "user", content: `Do not explain what you are doing. Do not mention "clusters" or "clustering" in your response.
+    
+    Below are clusters of news headlines, selected because they are about similar news stories. Each cluster notes the frequency a particular news topic was written
+    about in the last 24 hours by the newspapers in ${country}. 
+    
+    The news headlines are organized in the following format:
+
+    [Cluster #1, frequency of the news topic in the headlines expressed numerically
+      headline1: "Headline text ",
+      headline2: "Headline text ",
+      headline3: "Headline text ",
+      ...
+    ],
+    [Cluster #2, frequency of the news topic in the headlines expressed numerically
+      headline4: "Headline text ",
+      headline5: "Headline text ",
+      headline6: "Headline text ",
+      ...
+    ],
+
+    Read only the clusters where the frequency number is 4 or more, and ignore all other clusters. Ignore news headlines related to horoscopes. Write a conversational English-language summary (not a list) suitable for a 15-year-old of the clusters you are reading.
+    Do not mention "clusters" or "clustering" in the response.
     
     The news headlines are ${cluster}`}],
     temperature : 0.8})

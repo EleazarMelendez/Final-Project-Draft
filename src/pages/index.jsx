@@ -19,11 +19,10 @@ export default function Home() {
           <Col xs={1}  > </Col>
       </Row>
       <Row>
-        <Col xs={8} >
-          <CountryButtons />
-          <GlobeApp />
+        <Col xs={6} >
+        <GlobeApp />
         </Col>
-        <Col xs={4}>
+        <Col xs={6}>
           <ContentCards />
         </Col>
       </Row>

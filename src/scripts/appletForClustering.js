@@ -64,17 +64,29 @@ const CleanHeadlines = truncatedHeadlines.map(headline => {
 
 const response = openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{role: "user", content: `Below are is a database news headlines, separated by a comma.
-    Some headlines are about a topic or story that appears more than once in the dataset. Other headlines refer to a unique story.
-    Look only at headlines where the topic or story repeats at least two times in the dataset. If there are no headlines where the topic
-    or story repeats at least two times in the dataset, return the word "Nothing". Return every headline about a repeated topic
-     or story, alongside a the number of times the story is repeated (expressed only as a number). Do not return headlines that refer to a unique topic. Use the exact following format in your answer,
-     including brackets, commas and quotation marks. Do not explain what you are doing.
+    messages: [{role: "user", content: 
+    `Do not explain what you are doing. Below are some news headlines, separated by a comma.
+    The headlines are in random order. 
+    Cluster the headlines that are about the same or similar news topic.
+    In each cluster, mark how many headlines are included (expressed as a numerical value).
+    Do not mention clusters or clustering in your answer.
+ Your answer should look like as follows including brackets, commas and quotation marks. 
 
-    [headline1: "Headline text as it appears on the dataset", Number of times the story is repeated expressed only as a number]
+    [Cluster #1, Number of headlines, expressed numerically
+      headline1: "Headline text as it appears on the dataset",
+      headline2: "Headline text as it appears on the dataset",
+      headline3: "Headline text as it appears on the dataset",
+      ...
+    ],
+    [Cluster #2, Number of headlines, expressed numerically
+      headline4: "Headline text as it appears on the dataset",
+      headline5: "Headline text as it appears on the dataset",
+      headline6: "Headline text as it appears on the dataset",
+      ...
+    ],
      
-     The dataset for the headlines is: ${CleanHeadlines}`}],
-     temperature : 0,
+    Here are the headlines: ${CleanHeadlines}`}],
+     temperature : 0.8,
 })
 .then(async (res) => {
   const result = res.data.choices[0].message.content;
