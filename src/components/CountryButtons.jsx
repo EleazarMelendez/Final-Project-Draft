@@ -67,7 +67,7 @@ export default function CountryButtons({focusRef}) {
           <span class="line-3"></span>
           <span class="line-4"></span>
         </a>
-        <a class="btn" href="#" onClick={() => { focusRef.current = locationToAngles(-13.6929, -89.2182) }}>
+        <a class="btn" href="#" onClick={() => { focusRef.current = locationToAngles(13.6929, -89.2182) }}>
           El Salvador
           <span class="line-1"></span>
           <span class="line-2"></span>

@@ -12,18 +12,18 @@ const supabaseUrl = 'https://bhzxwvltfuqsmnhgqjrf.supabase.co'
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-async function deleteAll () {
+async function deleteClustered () {
     const { data, error } = await supabase
-    .from('ParsedArticles')
+    .from('ClusteredArticles')
     .delete()
     .neq('country', '100')
     
     if (error) {
       console.error(error);
     } else {
-      console.log(`Deleted all from Parsed Articles`);
+      console.log(`Deleted all from Clustered Articles`);
     }
   
   };
 
-module.exports = { deleteAll };
+module.exports = { deleteClustered };

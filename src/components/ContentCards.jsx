@@ -7,6 +7,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function ContentCards() {
   const [summaries, setSummaries] = useState([]);
+  const [goBack , setGoBack] = useState(null);
+  const [introOpen, setIntroOpen] = useState(null);
+  const [howToOpen, setHowToOpen] = useState(true);
+  const [warningOpen, setWarningOpen] = useState(null);
+  
 
   useEffect(() => {
     getSummaries();
@@ -19,12 +24,22 @@ export default function ContentCards() {
     setSummaries(data);
   }
 
-  const country = "Puerto Rico"; // the country you're interested in
+  const country = "Argentina"; // the country you're interested in
 
   const summary = summaries.find(obj => obj.country === country)?.article_summary;
 
   return (
     <div>
+      <div className="btn-cont">
+   <a class="btn" href="#">
+          You have selected {country}. Click here to select a different country.
+          <span class="line-1"></span>
+          <span class="line-2"></span>
+          <span class="line-3"></span>
+          <span class="line-4"></span>
+        </a>
+        </div>
+
       <div class="main-container">
         <div class="card-2 diagonal-gridlines">
           <div class="card_title">You are using ForeignBuró</div>
@@ -90,7 +105,7 @@ export default function ContentCards() {
           <div class="card_title">Here's what's being published by the newspapers in {country}</div>
           <div class="separator"></div>
           <div class="card_content">
-          <p>{summary}</p>
+          <p className="typing-simple">{summary}</p>
           </div>
         </div>
     </div>

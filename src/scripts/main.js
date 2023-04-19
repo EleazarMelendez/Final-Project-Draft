@@ -3,7 +3,8 @@ const { nlpSummary } = require("./appletForSummary");
 const { nlpProcessing } = require("./appletForTFIDF");
 const  {ParsingFunction} = require("./parser");
 const { updateTFIDF } = require("./updateTFIDF");
-const {deleteAll} = require("./deleteAll")
+const {deleteParsed} = require("./deleteParsed")
+const { deleteClustered } =require("./deleteClustered")
 
 let countryArray = [
   "Argentina",
@@ -26,7 +27,7 @@ let countryArray = [
 
 const main = async () => {
 
-  // await deleteAll();
+  // await deleteParsed();
 
   // await new Promise((resolve) => setTimeout(resolve, 5000));
 
@@ -35,6 +36,8 @@ const main = async () => {
   // for (let country of countryArray) {
   //   await updateTFIDF(country);
   // };
+
+  await deleteClustered();
 
   for (let country of countryArray) {
     await nlpClustering(country);
@@ -46,8 +49,6 @@ const main = async () => {
   for (let country of countryArray) {
     await nlpSummary(country);
   };
-
-  await new Promise((resolve) => setTimeout(resolve, 60000));
 
 };
 

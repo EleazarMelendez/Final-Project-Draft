@@ -64,12 +64,12 @@ const CleanHeadlines = truncatedHeadlines.map(headline => {
 
 const response = openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{role: "user", content: 
+    messages: [
+      {role: "user", content: 
     `Do not explain what you are doing. Below are some news headlines, separated by a comma.
     The headlines are in random order. 
-    Cluster the headlines that are about the same or similar news topic.
+    Cluster the headlines that are about the same or similar news topics.
     In each cluster, mark how many headlines are included (expressed as a numerical value).
-    Do not mention clusters or clustering in your answer.
  Your answer should look like as follows including brackets, commas and quotation marks. 
 
     [Cluster #1, Number of headlines, expressed numerically
@@ -86,7 +86,7 @@ const response = openai.createChatCompletion({
     ],
      
     Here are the headlines: ${CleanHeadlines}`}],
-     temperature : 0.8,
+     temperature : 0,
 })
 .then(async (res) => {
   const result = res.data.choices[0].message.content;

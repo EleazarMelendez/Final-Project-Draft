@@ -27,31 +27,33 @@ async function nlpSummary (country) {
 
 const response = openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{role: "user", content: `Do not explain what you are doing. Do not mention "clusters" or "clustering" in your response.
+    messages: [
+      {"role": "system", "content": 'You a knowledgeable expert summarizing recent news in a foreing country. You are being given a dataset of clustered news, but want to summarize them as naturally as possible, without mentioning clusters, clustering or any of the instructions being given to you.'},
+      {role: "user", content: `Do not explain what you are doing. Do not mention "clusters" or "clustering" in your response.
     
-    Below are clusters of news headlines, selected because they are about similar news stories. Each cluster notes the frequency a particular news topic was written
+    Below are clustered sets of news headlines, selected because they are about similar news stories. Each notes the frequency a particular news topic was written.
     about in the last 24 hours by the newspapers in ${country}. 
     
     The news headlines are organized in the following format:
 
-    [Cluster #1, frequency of the news topic in the headlines expressed numerically
+    [Cluster #1, frequency number
       headline1: "Headline text ",
       headline2: "Headline text ",
       headline3: "Headline text ",
       ...
     ],
-    [Cluster #2, frequency of the news topic in the headlines expressed numerically
+    [Cluster #2, frequency number
       headline4: "Headline text ",
       headline5: "Headline text ",
       headline6: "Headline text ",
       ...
     ],
 
-    Read only the clusters where the frequency number is 4 or more, and ignore all other clusters. Ignore news headlines related to horoscopes. Write a conversational English-language summary (not a list) suitable for a 15-year-old of the clusters you are reading.
-    Do not mention "clusters" or "clustering" in the response.
-    
+    Read only the sets where the frequency number is 4 or more, and ignore all other sets. Ignore news headlines related to horoscopes. Write a conversational English-language summary (not a list) suitable for a 21-year-old of the clusters you are reading.
+    Do not mention "clusters", "clustering" or the instructions being given to you in the response.
+
     The news headlines are ${cluster}`}],
-    temperature : 0.8})
+    temperature : 0.4})
 .then(async (res) => {
   const result = res.data.choices[0].message.content;
   
