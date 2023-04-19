@@ -1,3 +1,8 @@
+/* Import Google Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Coustard:wght@400;900&family=Fjalla+One&family=Playfair+Display&family=Rozha+One&display=swap');
+
+
 /* //Style for background */
 
 body {
@@ -9,7 +14,6 @@ body {
     #171819 75%
   );
   background-size: 10px 10px;
-  font-family: 'Courier New', Courier, monospace;
   justify-content: center;
   align-items: center;
 }
@@ -17,12 +21,17 @@ body {
 .h1 {
 font-size: 24px;
 }
+
+/* "MoveUp" class to manually manipulate globe position */
+
 .moveup {
   margin-top: -4%;
   margin-left: -5%;
   margin-bottom: -10%;
   position:relative;
 }
+
+/* "Target-Image" class to manually manipulate crosshairs */
 
 .target-image
 {  position: absolute;
@@ -31,11 +40,7 @@ font-size: 24px;
   max-width: 10%;
 }
 
-.top-title {
-  font-size: 24px;
-  text-align:center;
-  color: white;
-}
+/* Style for ForeignBuró header */
 
 .mid-title {
   font-size: 36px;
@@ -46,13 +51,6 @@ font-size: 24px;
   font-weight: 700;
 }
 
-.right-title {
-  font-size: 24px;
-  color: white;
-  text-align: right;
-  margin-right: 50px;
-  margin-top:-20px;
-}
 /* //Style for country buttons */
 
 .btn-cont {
@@ -70,7 +68,7 @@ font-size: 24px;
   text-decoration: none;
   font-size: 12px;
   font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Abril Fatface', cursive; 
   letter-spacing: 2px;
   -webkit-font-smoothing: antialiased;
 }
@@ -99,7 +97,6 @@ font-size: 24px;
   font-weight: 700;
   background-color: skyblue;
 }
-
 
 .btn-cont .line-1 {
   content: "";

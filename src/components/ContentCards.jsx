@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import GoBackButton from "./GoBackButton";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -11,8 +12,8 @@ export default function ContentCards() {
   const [introOpen, setIntroOpen] = useState(null);
   const [howToOpen, setHowToOpen] = useState(true);
   const [warningOpen, setWarningOpen] = useState(null);
+  const [stateCountry, setStateCountry] = useState('Peru');
   
-
   useEffect(() => {
     getSummaries();
   }, []);
@@ -24,21 +25,13 @@ export default function ContentCards() {
     setSummaries(data);
   }
 
-  const country = "Argentina"; // the country you're interested in
+  const country = stateCountry; // the country you're interested in
 
   const summary = summaries.find(obj => obj.country === country)?.article_summary;
 
   return (
     <div>
-      <div className="btn-cont">
-   <a class="btn" href="#">
-          You have selected {country}. Click here to select a different country.
-          <span class="line-1"></span>
-          <span class="line-2"></span>
-          <span class="line-3"></span>
-          <span class="line-4"></span>
-        </a>
-        </div>
+<GoBackButton/>
 
       <div class="main-container">
         <div class="card-2 diagonal-gridlines">

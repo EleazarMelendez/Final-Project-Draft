@@ -68,17 +68,20 @@ const response = openai.createChatCompletion({
       {role: "user", content: 
     `Do not explain what you are doing. Below are some news headlines, separated by a comma.
     The headlines are in random order. 
-    Cluster the headlines that are about the same or similar news topics.
+    Cluster the headlines that share the same or similar news topics.
     In each cluster, mark how many headlines are included (expressed as a numerical value).
+    Include several keywords about the topics that news topics that the headlines share 
  Your answer should look like as follows including brackets, commas and quotation marks. 
 
-    [Cluster #1, Number of headlines, expressed numerically
+    [Cluster #1, Number of headlines expressed numerically
+      Keywords
       headline1: "Headline text as it appears on the dataset",
       headline2: "Headline text as it appears on the dataset",
       headline3: "Headline text as it appears on the dataset",
       ...
     ],
-    [Cluster #2, Number of headlines, expressed numerically
+    [Cluster #2, Number of headlines expressed numerically,
+      Keywords,
       headline4: "Headline text as it appears on the dataset",
       headline5: "Headline text as it appears on the dataset",
       headline6: "Headline text as it appears on the dataset",

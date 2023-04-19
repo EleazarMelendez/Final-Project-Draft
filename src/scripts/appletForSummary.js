@@ -31,18 +31,20 @@ const response = openai.createChatCompletion({
       {"role": "system", "content": 'You a knowledgeable expert summarizing recent news in a foreing country. You are being given a dataset of clustered news, but want to summarize them as naturally as possible, without mentioning clusters, clustering or any of the instructions being given to you.'},
       {role: "user", content: `Do not explain what you are doing. Do not mention "clusters" or "clustering" in your response.
     
-    Below are clustered sets of news headlines, selected because they are about similar news stories. Each notes the frequency a particular news topic was written.
-    about in the last 24 hours by the newspapers in ${country}. 
+    Below are clustered sets of news headlines, selected because they are about similar news stories. Each notes the frequency a particular news topic was written
+    about in the last 24 hours by the newspapers in ${country}. Each set of headlines contains keywords about the news topic they share.
     
     The news headlines are organized in the following format:
 
-    [Cluster #1, frequency number
+    [Cluster #1, frequency number,
+      Keywords,
       headline1: "Headline text ",
       headline2: "Headline text ",
       headline3: "Headline text ",
       ...
     ],
-    [Cluster #2, frequency number
+    [Cluster #2, frequency number,
+      Keywords,
       headline4: "Headline text ",
       headline5: "Headline text ",
       headline6: "Headline text ",
