@@ -33,7 +33,7 @@ let { data, error } = await supabase
   .from('ParsedArticles')
   .select('id,country,article_headline')
   .gte('article_published', timestampMinus24)
-  .gt('tfidf_score', 4)
+  // .gt('tfidf_score', 4)
   .eq('country', country)
   .order('tfidf_score',  { ascending: false });
  

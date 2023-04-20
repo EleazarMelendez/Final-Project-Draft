@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useWindupString } from "windups";
 import GoBackButton from "./GoBackButton";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -12,15 +13,39 @@ export default function ContentCards() {
   const [introCardOpen, setIntroCardOpen] = useState(false);
   const [howCardOpen, setHowCardOpen] = useState(true);
   const [warningCardOpen, setWarningCardOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
-  const [stateCountry, setStateCountry] = useState('Peru');
+  const [countryState, setCountryState] = useState('Peru');
   
   const toggleIntroCardOpen = () => {setIntroCardOpen(!introCardOpen);};
   const toggleHowCardOpen = () => {setHowCardOpen(!howCardOpen);};
   const toggleWarningCardOpen = () => {setWarningCardOpen(!warningCardOpen);};
 
+  const renderSummaryCard = () => {
+
+    if (isLoading) {
+      return <div className="typing-demo">Loading</div>;
+    }
+
+    if (countryState === '') {
+      return  <div></div>;
+    } else {
+      return  <div>
+        <div class="main-container card-2 diagonal-gridlines">
+      <div class="card_title">Below is an AI-generated summary of what's being published by the newspapers in {country}</div>
+      <div class="separator"></div>
+      <div class="card_content">
+      <p >{summary}</p>
+      </div>
+    </div></div>
+    }
+  }
+
   useEffect(() => {
     getSummaries();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   }, []);
 
   async function getSummaries() {
@@ -30,7 +55,7 @@ export default function ContentCards() {
     setSummaries(data);
   }
 
-  const country = stateCountry; // the country you're interested in
+  const country = countryState; // the country you're interested in
 
   const summary = summaries.find(obj => obj.country === country)?.article_summary;
 
@@ -113,6 +138,7 @@ export default function ContentCards() {
       ) : (
         <div>+</div>
       )}
+
 </button></div></div>
 {warningCardOpen && (<div>
           <div class="separator"></div>
@@ -137,14 +163,9 @@ export default function ContentCards() {
       </div>
       </div>
 
+ {renderSummaryCard()}
 
-      <div class="main-container card-2 diagonal-gridlines">
-          <div class="card_title">Here's what's being published by the newspapers in {country}</div>
-          <div class="separator"></div>
-          <div class="card_content">
-          <p className="typing-simple">{summary}</p>
-          </div>
-        </div>
+
     </div>
   );
 

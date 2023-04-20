@@ -26,12 +26,15 @@ async function ParsingFunction() {
   // Defines AllFeeds(), an asynchronous function that parses multiple RSS feeds and maps all relevant items into an array
   const AllFeeds = async (URL, Country) => {
     const results = [];
-    {
+
+    try {
       let feed = await parser.parseURL(URL);
       const siteTitle = feed.title;
       const newsItemTitle = feed.items.map((item) => item.title);
       const newsItemPublished = feed.items.map((item) => item.pubDate);
       results.push([siteTitle, Country, newsItemTitle, newsItemPublished]);
+    } catch (error) {
+      console.error(error);
     }
     return results;
   };

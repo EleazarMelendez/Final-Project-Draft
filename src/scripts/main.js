@@ -26,10 +26,9 @@ let countryArray = [
 ]
 
 const main = async () => {
-
   // await deleteParsed();
 
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  await deleteClustered();
 
   // await ParsingFunction();
   
@@ -37,14 +36,11 @@ const main = async () => {
   //   await updateTFIDF(country);
   // };
 
-  await deleteClustered();
-
   for (let country of countryArray) {
     await nlpClustering(country);
   };
 
   await new Promise((resolve) => setTimeout(resolve, 120000));
-
 
   for (let country of countryArray) {
     await nlpSummary(country);
