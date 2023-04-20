@@ -13,8 +13,7 @@ import Menu from "@/components/Menu";
 export default function Home() {
   return (
     <Container fluid>
-      <Menu />
-      <main>
+      <Menu />      <main>
       <Row>
         <Col xs={1}  > </Col>
         <Col xs={10}  > <MainHeader />

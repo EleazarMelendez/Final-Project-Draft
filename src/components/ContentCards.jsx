@@ -8,12 +8,17 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function ContentCards() {
   const [summaries, setSummaries] = useState([]);
-  const [goBack , setGoBack] = useState(null);
-  const [introOpen, setIntroOpen] = useState(null);
-  const [howToOpen, setHowToOpen] = useState(true);
-  const [warningOpen, setWarningOpen] = useState(null);
+
+  const [introCardOpen, setIntroCardOpen] = useState(false);
+  const [howCardOpen, setHowCardOpen] = useState(true);
+  const [warningCardOpen, setWarningCardOpen] = useState(false);
+  
   const [stateCountry, setStateCountry] = useState('Peru');
   
+  const toggleIntroCardOpen = () => {setIntroCardOpen(!introCardOpen);};
+  const toggleHowCardOpen = () => {setHowCardOpen(!howCardOpen);};
+  const toggleWarningCardOpen = () => {setWarningCardOpen(!warningCardOpen);};
+
   useEffect(() => {
     getSummaries();
   }, []);
@@ -30,14 +35,25 @@ export default function ContentCards() {
   const summary = summaries.find(obj => obj.country === country)?.article_summary;
 
   return (
-    <div>
-<GoBackButton/>
+  <div>
 
-      <div class="main-container">
+      <div className="main-container">
         <div class="card-2 diagonal-gridlines">
-          <div class="card_title">You are using ForeignBuró</div>
-          <div class="separator"></div>
-          <div class="card_content">
+          <div class="card_title">You are using ForeignBuró
+<div><button class="circle"onClick={toggleIntroCardOpen} >
+
+{introCardOpen ? (
+        <div>-</div>
+      ) : (
+        <div>+</div>
+      )}
+
+</button></div>
+        </div>
+
+          {introCardOpen && (<div>
+         <div class="separator"></div>
+         <div class="card_content">
             There is so much happening in the world around us.<br></br>{" "}
             <br></br>
             Yet most of what we hear about from the far corners of the globe
@@ -54,10 +70,22 @@ export default function ContentCards() {
             <br></br>
             We hope you will find this tool informative.
           </div>
-        </div>
+         </div>
+      )}
       </div>
-      <div class="main-container card-2 diagonal-gridlines">
-        <div class="card_title">How it works</div>
+      </div>
+
+      <div class="main-container"><div class="card-2 diagonal-gridlines">
+        <div class="card_title">How it works
+        <div><button class="circle"onClick={toggleHowCardOpen} >
+
+        {howCardOpen ? (
+        <div>-</div>
+      ) : (
+        <div>+</div>
+      )}
+</button></div></div>
+{howCardOpen && (<div>
         <div class="separator"></div>
         <div class="card_content">
           <div class="alarm">
@@ -71,12 +99,25 @@ export default function ContentCards() {
             countries at the same time and customize settings.
           </div>
         </div>
+        </div>)}
       </div>
-      <div class="card-warning main-container diagonal-gridlines">
-        <div class="card_title main-container">A warning about press freedom</div>
-        <div class="separator"></div>
+      </div>
+
+      <div className="main-container">
+      <div class="card-warning diagonal-gridlines">
+        <div class="card_title">A warning about press freedom
+       <div> <button class="circle"onClick={toggleWarningCardOpen} >
+
+       {warningCardOpen ? (
+        <div>-</div>
+      ) : (
+        <div>+</div>
+      )}
+</button></div></div>
+{warningCardOpen && (<div>
+          <div class="separator"></div>
         <div class="card_content">
-          <div class="alarm main-container">
+          <div class="alarm">
             This tool aggregrates data from hundreds of news sites across the
             world, treating the content obtained from each one without fear or
             favor. But that doesn't mean all content is equal, or that the
@@ -92,7 +133,10 @@ export default function ContentCards() {
             accuracy of those news.
           </div>
         </div>
+        </div>)}
       </div>
+      </div>
+
 
       <div class="main-container card-2 diagonal-gridlines">
           <div class="card_title">Here's what's being published by the newspapers in {country}</div>
@@ -103,4 +147,7 @@ export default function ContentCards() {
         </div>
     </div>
   );
+
+  
 }
+
