@@ -29,25 +29,25 @@ let countryArray = [
 ]
 
 const main = async () => {
-  await deleteParsed();
+  // await deleteParsed();
 
-  await deleteClustered();
+  // await deleteClustered();
 
-  await ParsingFunction();
+  // await ParsingFunction();
   
-  for (let country of countryArray) {
-    await updateTFIDF(country);
-  };
+  // for (let country of countryArray) {
+  //   await updateTFIDF(country);
+  // };
 
-  for (let country of countryArray) {
-    await nlpClustering(country);
-  };
+  // for (let country of countryArray) {
+  //   await nlpClustering(country);
+  // };
 
-  await new Promise((resolve) => setTimeout(resolve, 120000));
+  // await new Promise((resolve) => setTimeout(resolve, 180000));
 
   for (let country of countryArray) {
     await nlpSummary(country);
-  };
+  }
 
 };
 

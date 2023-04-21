@@ -1,10 +1,10 @@
-export default function GoBackButton({countryState}) {
+export default function GoBackButton({countryState, onBlankButtonClick}) {
 
   return (
     <div>
       <div className="btn-cont">
-        <a class="btn" href="#">
-          You have selected {countryState}. Go back to the introduction.
+        <a class="btn" href="#" onClick={onBlankButtonClick}>
+          You have selected {countryState}. Click here to back to the introduction.
           <span class="line-1"></span>
           <span class="line-2"></span>
           <span class="line-3"></span>
