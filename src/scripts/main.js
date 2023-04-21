@@ -21,20 +21,23 @@ let countryArray = [
   "Mexico",
   "Nicaragua",
   "Panama",
+  "Paraguay",
   "Peru",
-  "Puerto Rico"
+  "Puerto Rico",
+  "Uruguay",
+  "Venezuela"
 ]
 
 const main = async () => {
-  // await deleteParsed();
+  await deleteParsed();
 
   await deleteClustered();
 
-  // await ParsingFunction();
+  await ParsingFunction();
   
-  // for (let country of countryArray) {
-  //   await updateTFIDF(country);
-  // };
+  for (let country of countryArray) {
+    await updateTFIDF(country);
+  };
 
   for (let country of countryArray) {
     await nlpClustering(country);

@@ -1,12 +1,10 @@
-export default function GoBackButton() {
-
-const country = "country"; // the country you're interested in
+export default function GoBackButton({countryState}) {
 
   return (
     <div>
       <div className="btn-cont">
         <a class="btn" href="#">
-          You have selected {country}. Click here to select a different country.
+          You have selected {countryState}. Go back to the introduction.
           <span class="line-1"></span>
           <span class="line-2"></span>
           <span class="line-3"></span>

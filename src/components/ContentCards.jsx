@@ -2,36 +2,32 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useWindupString } from "windups";
 import GoBackButton from "./GoBackButton";
+import { render } from "react-dom";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default function ContentCards() {
+export default function ContentCards({countryState}) {
   const [summaries, setSummaries] = useState([]);
 
   const [introCardOpen, setIntroCardOpen] = useState(false);
   const [howCardOpen, setHowCardOpen] = useState(true);
   const [warningCardOpen, setWarningCardOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  
-  const [countryState, setCountryState] = useState('Peru');
   
   const toggleIntroCardOpen = () => {setIntroCardOpen(!introCardOpen);};
   const toggleHowCardOpen = () => {setHowCardOpen(!howCardOpen);};
   const toggleWarningCardOpen = () => {setWarningCardOpen(!warningCardOpen);};
 
   const renderSummaryCard = () => {
-
-    if (isLoading) {
-      return <div className="typing-demo">Loading</div>;
-    }
-
     if (countryState === '') {
       return  <div></div>;
     } else {
       return  <div>
-        <div class="main-container card-2 diagonal-gridlines">
+        <div>
+        <GoBackButton countryState={countryState} />
+        </div>
+      <div class="main-container card-2 diagonal-gridlines">
       <div class="card_title">Below is an AI-generated summary of what's being published by the newspapers in {country}</div>
       <div class="separator"></div>
       <div class="card_content">
@@ -41,28 +37,12 @@ export default function ContentCards() {
     }
   }
 
-  useEffect(() => {
-    getSummaries();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
-
-  async function getSummaries() {
-    const { data } = await supabase
-      .from("ClusteredArticles")
-      .select("article_summary, country");
-    setSummaries(data);
-  }
-
-  const country = countryState; // the country you're interested in
-
-  const summary = summaries.find(obj => obj.country === country)?.article_summary;
-
-  return (
-  <div>
-
-      <div className="main-container">
+  const renderIntro = () => {
+    if (countryState !== '') {
+      return  <div></div>;
+    } else {
+      return  <div>
+<div className="main-container">
         <div class="card-2 diagonal-gridlines">
           <div class="card_title">You are using ForeignBuró
 <div><button class="circle"onClick={toggleIntroCardOpen} >
@@ -161,14 +141,32 @@ export default function ContentCards() {
         </div>
         </div>)}
       </div>
-      </div>
+      </div>        
+        </div>;
+    }
+  }
 
+  useEffect(() => {
+    getSummaries();
+  }, []);
+
+  async function getSummaries() {
+    const { data } = await supabase
+      .from("ClusteredArticles")
+      .select("article_summary, country");
+    setSummaries(data);
+  }
+
+  const country = countryState; // the country you're interested in
+
+  const summary = summaries.find(obj => obj.country === country)?.article_summary;
+
+  return (
+
+  <div>
+
+      {renderIntro()}
  {renderSummaryCard()}
-
-
     </div>
   );
-
-  
 }
-

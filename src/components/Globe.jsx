@@ -1,8 +1,9 @@
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 import CountryButtons from "./CountryButtons";
+import { useState } from "react";
 
-export default function GlobeApp() 
+export default function GlobeApp({onCountryStateChange}) 
 { const canvasRef = useRef() 
   const focusRef = useRef([0, 0]) 
 
@@ -46,7 +47,8 @@ export default function GlobeApp()
         { location: [12.1150, -86.2362], size: 0.03},
         { location: [8.9943, -79.5188], size: 0.03},
         { location: [-12.0464, -77.0428], size: 0.03},
-        { location: [18.4671, -66.1185], size: 0.03}, 
+        { location: [18.4671, -66.1185], size: 0.03},
+        { location: [-25.2637, -57.5759], size: 0.03},
         { location: [-34.9055, -56.185], size: 0.03}, 
         { location: [10.4806, -66.9036], size: 0.03}, 
        ], 
@@ -67,7 +69,7 @@ export default function GlobeApp()
           return () => globe.destroy() }, []) 
           
           return (
-          <div >
+          <div>
           <div className="moveup" style={{ 
             width: '100%', 
           maxWidth: 950, 
@@ -80,7 +82,27 @@ export default function GlobeApp()
           transition: 'opacity 1s ease', }} /> 
           <img className="target-image" src={"/images/Crosshair.png"}/>
 </div>
-<CountryButtons focusRef={focusRef} />
+<CountryButtons 
+onArgentinaButtonClick={() => onCountryStateChange('Argentina')} 
+onBoliviaButtonClick={() => onCountryStateChange('Bolivia')} 
+onChileButtonClick={() => onCountryStateChange('Chile')} 
+onColombiaButtonClick={() => onCountryStateChange('Colombia')} 
+onCostaRicaButtonClick={() => onCountryStateChange('Costa Rica')} 
+onCubaButtonClick={() => onCountryStateChange('Cuba')} 
+onDominicanRepublicButtonClick={() => onCountryStateChange('Dominican Republic')} 
+onEcuadorButtonClick={() => onCountryStateChange('Ecuador')} 
+onElSalvadorButtonClick={() => onCountryStateChange('El Salvador')} 
+onGuatemalaButtonClick={() => onCountryStateChange('Guatemala')} 
+onHondurasButtonClick={() => onCountryStateChange('Honduras')} 
+onMexicoButtonClick={() => onCountryStateChange('Mexico')} 
+onNicaraguaButtonClick={() => onCountryStateChange('Nicaragua')} 
+onPanamaButtonClick={() => onCountryStateChange('Panama')} 
+onParaguayButtonClick={() => onCountryStateChange('Paraguay')} 
+onPeruButtonClick={() => onCountryStateChange('Peru')} 
+onPuertoRicoButtonClick={() => onCountryStateChange('Puerto Rico')} 
+onUruguayButtonClick={() => onCountryStateChange('Uruguay')}
+onVenezuelaButtonClick={() => onCountryStateChange('Venezuela')}  
+focusRef={focusRef} />
 
           </div>
  )
