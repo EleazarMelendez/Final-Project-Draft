@@ -3,7 +3,7 @@ import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
-export default function LoginPage() {
+export default function Home() {
   const supabase = useSupabaseClient();
   const user = useUser();
   const router = useRouter();
@@ -11,17 +11,19 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      router.replace(returnPath || "/");
+      router.replace(returnPath || "/dashboard");
     }
   }, [user, router]);
 
   if (!user) {
     return (
+      <div>
+      <div>Back to main page</div>
       <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
-        providers={[]}
       />
+      </div>
     );
   }
 
