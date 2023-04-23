@@ -9,7 +9,7 @@ export default function Menu() {
 
 <nav class="nav">
 	<ul>
-		<li><a href="#">Main page</a></li>
+		<li><a href="http://localhost:3000/">Main page</a></li>
 		<li><a href="/dashboard">Personalized news</a></li>
 		<li><a href="#">About this project</a></li>
 		<li><a href="#">Acknowledgements</a></li>

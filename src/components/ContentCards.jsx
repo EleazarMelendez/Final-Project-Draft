@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { useWindupString } from "windups";
 import GoBackButton from "./GoBackButton";
 import { render } from "react-dom";
 import Loader from "./Loader";
@@ -12,9 +11,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export default function ContentCards({ countryState, onCountryStateChange }) {
   const [summaries, setSummaries] = useState([]);
 
-  const [introCardOpen, setIntroCardOpen] = useState(false);
+  const [introCardOpen, setIntroCardOpen] = useState(true);
   const [howCardOpen, setHowCardOpen] = useState(true);
-  const [warningCardOpen, setWarningCardOpen] = useState(false);
+  const [warningCardOpen, setWarningCardOpen] = useState(true);
 
   const toggleIntroCardOpen = () => {
     setIntroCardOpen(!introCardOpen);
@@ -32,14 +31,26 @@ export default function ContentCards({ countryState, onCountryStateChange }) {
     setShowLoader(true);
   }, [countryState]);
 
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 600) {
+        setIntroCardOpen(false);
+        setWarningCardOpen(false);
+      }
+    }
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); 
+
   const renderSummaryCard = () => {
     if (countryState === "") {
       return <div></div>;
     } else if (showLoader) {
       return (
-        <div className="main-container">
-          <img className="loader-image" src={"/images/loader.gif"} />
-          {setTimeout(() => setShowLoader(false), 1500)}
+        <div className="loader-container">
+          <Loader />
+          {setTimeout(() => setShowLoader(false), 4000)}
         </div>
       );
     } else {

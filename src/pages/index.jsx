@@ -8,7 +8,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ProgressBar from "@/components/ProgressBar";
 import ContentCards from "@/components/ContentCards";
 import MainHeader from "@/components/MainHeader";
-import Modal from "@/components/Modal";
 import Menu from "@/components/Menu";
 
 export default function Home() {

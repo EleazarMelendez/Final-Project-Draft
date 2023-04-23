@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
+import Menu from "@/components/Menu";
 
 export default function Home() {
   const supabase = useSupabaseClient();
@@ -18,10 +19,11 @@ export default function Home() {
   if (!user) {
     return (
       <div>
-      <div>Back to main page</div>
+      <Menu />
       <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
+        providers={[]}
       />
       </div>
     );

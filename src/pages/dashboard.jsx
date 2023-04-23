@@ -1,20 +1,26 @@
 import { useSecurePage } from "@/lib/useSecurePage";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { addUserToPreferencesTable } from "@/lib/addUsertoPreferencesTable";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import CountryCheckboxes from "@/components/CountryCheckboxes";
+import Menu from "@/components/Menu"
 
 const Dashboard = () => {
+
   useSecurePage();
-  const supabase = useSupabaseClient();
+  addUserToPreferencesTable();
+  const supabaseClient = useSupabaseClient();
 
   return (
     <div>
-      Dashboard
+  <Menu />
       <button
         onClick={() => {
-          supabase.auth.signOut();
+          supabaseClient.auth.signOut();
         }}
       >
         Log out
       </button>
+  <CountryCheckboxes />
     </div>
   );
 };
