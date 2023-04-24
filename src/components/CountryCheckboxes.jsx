@@ -2,15 +2,14 @@ export default function CountryCheckboxes() {
     return (
       <div>
             <section class="app">
-  <i class="fa fa-rocket"></i>
   <h1>It's time to <span class="blue-color">upgrade</span></h1>
   <h3 class="gray-color">Choose the feature that best fit your needs and you'll be good to go!</h3>
+
   <article class="feature1">
     <input type="checkbox" id="feature1"/>
     <div>
       <span>
-        20 GB<br/>
-        + $15.00
+       Argentina
       </span>
     </div>
   </article>
@@ -19,8 +18,7 @@ export default function CountryCheckboxes() {
     <input type="checkbox" id="feature2"/>
     <div>
       <span>
-        10 Emails<br/>
-        + $10.00
+        Bolivia
       </span>
     </div>
   </article>
@@ -29,22 +27,12 @@ export default function CountryCheckboxes() {
     <input type="checkbox" id="feature3"/>
     <div>
       <span>
-        Support<br/>
-        + $65.00
+  Chile
       </span>
     </div>
   </article>
   
-  <article class="feature4">
-    <input type="checkbox" id="feature4" checked/>
-    <div>
-      <span>
-        Coffee<br/>
-        $1.00
-      </span>
-    </div>
-  </article>
-  
+ 
   <h3>
     <span class="blue-color">50% </span>discount only today!
   </h3>

@@ -53,6 +53,10 @@ font-size: 24px;
 
 /* //Style for country buttons */
 
+.goback-adjust {
+  margin-right: -15px;
+}
+
 .btn-cont {
   text-align: center;
   margin-top: 10px;
@@ -308,9 +312,8 @@ font-size: 24px;
   line-height: 90%;
   font-size: 16px;
   font-weight: 500;
-  width: 100%;
-  position: relative;
-}
+  width: 95%;
+  position: relative;}
 
 .card-2 {
   box-shadow: inset 0 0 10px #05C7F2, 0 0 20px #05C7F2;
@@ -1272,16 +1275,15 @@ main footer .secondary-links .social li > a:hover {
   }
 }
 
-/* Style for Country Buttons */
+/* Style for Country Checkboxes */
 
 .app {
-  max-width: 300px;
+  max-width: 75%;
   margin: 0 auto;
 }
 
-.app i {
+.slide {
   font-size: 80px;
-  
   animation-duration: 3s;
   animation-name: slidein;
   animation-iteration-count: 1;

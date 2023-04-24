@@ -3,6 +3,7 @@ import { addUserToPreferencesTable } from "@/lib/addUsertoPreferencesTable";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import CountryCheckboxes from "@/components/CountryCheckboxes";
 import Menu from "@/components/Menu"
+import SpinningGlobe from "@/components/SpinningGlobe";
 
 const Dashboard = () => {
 
@@ -11,7 +12,7 @@ const Dashboard = () => {
   const supabaseClient = useSupabaseClient();
 
   return (
-    <div>
+    <div class="app slide">
   <Menu />
       <button
         onClick={() => {
@@ -20,6 +21,7 @@ const Dashboard = () => {
       >
         Log out
       </button>
+      <SpinningGlobe />   
   <CountryCheckboxes />
     </div>
   );

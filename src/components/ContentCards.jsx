@@ -55,14 +55,14 @@ export default function ContentCards({ countryState, onCountryStateChange }) {
       );
     } else {
       return (
-        <div>
-          <div>
+        <div className="main-container">
+          <div className="goback-adjust">
             <GoBackButton
               countryState={countryState}
               onBlankButtonClick={() => onCountryStateChange("")}
             />
           </div>
-          <div class="main-container card-2 diagonal-gridlines">
+          <div class="card-2 diagonal-gridlines">
             <div class="card_title">
               Below is an AI-generated summary of what's being published by the
               newspapers in {country}
