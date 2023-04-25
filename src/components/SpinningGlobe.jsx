@@ -34,10 +34,10 @@ export default function SpinningGlobe() {
   }, []);
 
   return (
-    <div className="container-main">
+    <div className="globe-container">
       <canvas
         ref={canvasRef}
-        style={{ width: 300, height: 300, maxWidth: "100%", aspectRatio: 1 }}
+        style={{width: 300, height: 300, aspectRatio: 1 }}
       />
     </div>
   );

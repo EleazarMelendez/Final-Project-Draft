@@ -37,7 +37,7 @@ export default function CountryButtons({focusRef,
         <a 
         class="btn" href="#" onClick={() => { focusRef.current = locationToAngles(-34.6037, -58.3816);}}>
           Argentina
-          <span onClick={onArgentinaButtonClick} class="line-1"></span>
+          <span class="line-1"></span>
           <span class="line-2"></span>
           <span class="line-3"></span>
           <span class="line-4"></span>

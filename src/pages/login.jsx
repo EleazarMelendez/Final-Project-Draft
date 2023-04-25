@@ -20,11 +20,13 @@ export default function Home() {
     return (
       <div>
       <Menu />
+      <div className="login-container">
       <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
         providers={[]}
       />
+      </div>
       </div>
     );
   }

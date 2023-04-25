@@ -1277,13 +1277,21 @@ main footer .secondary-links .social li > a:hover {
 
 /* Style for Country Checkboxes */
 
+.globe-container{
+  text-align: center;
+}
+
 .app {
   max-width: 75%;
   margin: 0 auto;
 }
 
+.section
+{
+  width: 100%;
+}
+
 .slide {
-  font-size: 80px;
   animation-duration: 3s;
   animation-name: slidein;
   animation-iteration-count: 1;
@@ -1291,20 +1299,21 @@ main footer .secondary-links .social li > a:hover {
 
 article {
   position: relative;
-  width: 140px;
-  height: 100px;
+  height: 30px;
   margin: 5px;
+  padding: 5px;
   float: left;
+  color:white;
+  border-radius: 50px;
   border: 2px solid #50bcf2;
-  box-sizing: border-box;
 }
 
 article div {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content:space-between;
+  align-items:self-end;
   line-height: 25px;
   transition: .5s ease;
 }
@@ -1324,7 +1333,6 @@ input[type=checkbox]:checked ~ div {
 }
 
 .upgrade-btn {
-  display: block;
   margin: 30px auto;
   width: 200px;
   padding: 10px 20px;
@@ -1349,26 +1357,26 @@ input[type=checkbox]:checked ~ div {
   color: #555;
 }
 
-.social i:before {
-  width: 14px;
-  height: 14px;
-  position: fixed;
-  color: #fff;
-  background: #0077B5;
-  padding: 10px;
-  border-radius: 50%;
-  top:5px;
-  right:5px;
-}
 
 @keyframes slidein {
   from {
     margin-top: 100%;
     width: 300%;
+    margin-left:12.5%;
   }
 
   to {
     margin: 0%;
     width: 100%;
+    margin-left:12.5%;
   }
+}
+
+/* Style for login page */
+
+.login-container {
+  color: white;
+  margin-top: 12%;
+  margin-left: 12%;
+  margin-right:12%
 }

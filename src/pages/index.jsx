@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import GlobeApp from "@/components/Globe";
 import CountryButtons from "@/components/CountryButtons";
@@ -12,11 +12,50 @@ import Menu from "@/components/Menu";
 
 export default function Home() {
   const [countryState, setCountryState] = useState('');
+  const [mobileView, setMobileView] = useState(false)
 
   function handleCountryStateChange(newCountry) {
     setCountryState(newCountry);
   }
-  
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 600) {
+        setMobileView(true);
+      }
+    }
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); 
+
+  const renderAsMobileOrDesktop = () => {
+    if (mobileView === false) {
+      return <div>
+              <Row>
+        <Col xs={6} >
+        <GlobeApp onCountryStateChange={handleCountryStateChange} />
+        </Col>
+        <Col xs={6}>
+          <ContentCards onCountryStateChange={handleCountryStateChange} countryState={countryState} />
+        </Col>
+      </Row>
+      </div>;
+    } else {
+      return (
+ <div> <Row>
+ 
+ <GlobeApp onCountryStateChange={handleCountryStateChange} />
+</Row> 
+<Row>
+   <ContentCards onCountryStateChange={handleCountryStateChange} countryState={countryState} />
+ </Row>
+      </div>
+      );
+    }
+  };
+
+
   return (
     <Container fluid>
       <Menu />      <main>
@@ -26,14 +65,9 @@ export default function Home() {
         <ProgressBar /></Col>
           <Col xs={1}  ></Col>
       </Row>
-      <Row>
-        <Col xs={6} >
-        <GlobeApp onCountryStateChange={handleCountryStateChange} />
-        </Col>
-        <Col xs={6}>
-          <ContentCards onCountryStateChange={handleCountryStateChange} countryState={countryState} />
-        </Col>
-      </Row>
+
+<div>{renderAsMobileOrDesktop()}</div>
+    
       </main>
     </Container>
   );
