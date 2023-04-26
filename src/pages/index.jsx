@@ -43,13 +43,15 @@ export default function Home() {
       </div>;
     } else {
       return (
- <div> <Row>
+ <div>
+  <Row>
+   <ContentCards onCountryStateChange={handleCountryStateChange} countryState={countryState} />
+ </Row>
+   <Row>
  
  <GlobeApp onCountryStateChange={handleCountryStateChange} />
 </Row> 
-<Row>
-   <ContentCards onCountryStateChange={handleCountryStateChange} countryState={countryState} />
- </Row>
+
       </div>
       );
     }

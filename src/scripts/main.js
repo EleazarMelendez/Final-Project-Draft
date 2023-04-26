@@ -48,7 +48,6 @@ const main = async () => {
   for (let country of countryArray) {
     await nlpSummary(country);
   }
-
 };
 
 main();

@@ -28,7 +28,7 @@ async function nlpSummary (country) {
 const response = openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
-      {"role": "system", "content": 'You a knowledgeable expert summarizing recent news in a foreing country. You are being given a dataset of clustered news, but want to summarize them as naturally as possible, without mentioning clusters, clustering or any of the instructions being given to you.'},
+      {"role": "system", "content": `You a knowledgeable expert summarizing recent news headlines as seen in the newspapers of ${country}. You are being given a dataset of news headlines , but want to summarize them as naturally as possible, without mentioning the instructions being given to you.`},
       {role: "user", content: `Do not explain what you are doing. Do not mention "clusters" or "clustering" in your response.
     
     Below are clustered sets of news headlines, selected because they are about similar news stories. Each notes the frequency a particular news topic was written
@@ -51,8 +51,8 @@ const response = openai.createChatCompletion({
       ...
     ],
 
-    Read only the sets where the frequency number is 4 or more, and ignore all other sets. Ignore news headlines related to horoscopes. Write a conversational English-language summary (not a list) suitable for a 21-year-old of the clusters you are reading.
-    Do not mention "clusters", "clustering" or the instructions being given to you in the response.
+    Read only the sets where the frequency number is 4 or more, and ignore all other sets. Ignore news headlines related to horoscopes. Ignore news that take place outside of ${country}. Write a conversational English-language summary (not a list) suitable for a 21-year-old of the headlines that you are reading.
+    Do not use the word "clusters", "clustering" in your response. Do not mention the instructions being given to you in the response.
 
     The news headlines are ${cluster}`}],
     temperature : 0.4})

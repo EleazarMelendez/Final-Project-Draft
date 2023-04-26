@@ -1,219 +1,288 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
+import { useUser } from "@supabase/auth-helpers-react";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function CountryCheckboxes() {
 
-  const [argentinaSubscribe, setArgentinaSubscribe] = useState(false);
-  const [boliviaSubscribe, setBoliviaSubscribe] = useState(false);
-  const [chileSubscribe, setChileSubscribe] = useState(false);
-  const [colombiaSubscribe, setColombiaSubscribe] = useState(false);
-  const [costaRicaSubscribe, setCostaRicaSubscribe] = useState(false);
-  const [cubaSubscribe, setCubaSubscribe] = useState(false);
-  const [dominicanRepublicSubscribe, setDominicanRepublicSubscribe] = useState(false);
-  const [ecuadorubscribe, setEcuadorSubscribe] = useState(false);
-  const [elSalvadorSubscribe, setElSalvadorSubscribe] = useState(false);
-  const [guatemalaSubscribe, setGuatemalaSubscribe] = useState(false);
-  const [hondurasSubscribe, setHondurasSubscribe] = useState(false);
-  const [mexicoSubscribe, setMexicoSubscribe] = useState(false);
-  const [nicaraguaSubscribe, setNicaraguaSubscribe] = useState(false);
-  const [panamaSubscribe, setPanamaSubscribe] = useState(false);
-  const [paraguaySubscribe, setParaguaySubscribe] = useState(false);
-  const [peruSubscribe, setPeruSubscribe] = useState(false);
-  const [puertoRicoSubscribe, setPuertoRicoSubscribe] = useState(false);
-  const [uruguaySubscribe, setUruguaySubscribe] = useState(false);
-  
+const user = useUser();
 
+  const [argentinaSubscribe, setArgentinaSubscribe] = useState(null);
+  const [boliviaSubscribe, setBoliviaSubscribe] = useState(null);
+  const [chileSubscribe, setChileSubscribe] = useState(null);
+  const [colombiaSubscribe, setColombiaSubscribe] = useState(null);
+  const [costaRicaSubscribe, setCostaRicaSubscribe] = useState(null);
+  const [cubaSubscribe, setCubaSubscribe] = useState(null);
+  const [dominicanRepublicSubscribe, setDominicanRepublicSubscribe] = useState(null);
+  const [ecuadorSubscribe, setEcuadorSubscribe] = useState(null);
+  const [elSalvadorSubscribe, setElSalvadorSubscribe] = useState(null);
+  const [guatemalaSubscribe, setGuatemalaSubscribe] = useState(null);
+  const [hondurasSubscribe, setHondurasSubscribe] = useState(null);
+  const [mexicoSubscribe, setMexicoSubscribe] = useState(null);
+  const [nicaraguaSubscribe, setNicaraguaSubscribe] = useState(null);
+  const [panamaSubscribe, setPanamaSubscribe] = useState(null);
+  const [paraguaySubscribe, setParaguaySubscribe] = useState(null);
+  const [peruSubscribe, setPeruSubscribe] = useState(null);
+  const [puertoRicoSubscribe, setPuertoRicoSubscribe] = useState(null);
+  const [uruguaySubscribe, setUruguaySubscribe] = useState(null);
+  const [venezuelaSubscribe, setVenezuelaSubscribe] = useState(null);
+  
+  const submitPreferences = async () => {
+    if (user) {
+    const { data, error } = await supabase
+      .from('UserPreferences')
+      .update({
+        argentina_subscribe: argentinaSubscribe,
+        bolivia_subscribe: boliviaSubscribe,
+        chile_subscribe: chileSubscribe,
+        colombia_subscribe: colombiaSubscribe,
+        costarica_subscribe: costaRicaSubscribe,
+        cuba_subscribe: cubaSubscribe,
+        dominicanrepublic_subscribe: dominicanRepublicSubscribe,
+        ecuador_subscribe: ecuadorSubscribe,
+        elsalvador_subscribe: elSalvadorSubscribe,
+        guatemala_subscribe: guatemalaSubscribe,
+        honduras_subscribe: hondurasSubscribe,
+        mexico_subscribe: mexicoSubscribe,
+        nicaragua_subscribe: nicaraguaSubscribe,
+        panama_subscribe: panamaSubscribe,
+        paraguay_subscribe: paraguaySubscribe,
+        peru_subscribe: peruSubscribe,
+        puertorico_subscribe: puertoRicoSubscribe,
+        uruguay_subscribe: uruguaySubscribe,
+        venezuela_subscribe: venezuelaSubscribe
+        })
+      .eq('id', user.id)}
+      }
+      
+useEffect(() => {
+  const fetchPreferences = async () => {
+    if (user) {
+    const { data, error } = await supabase
+      .from('UserPreferences')
+      .select('*')
+      .eq('id', user.id);
+
+      if (data)
+{
+setArgentinaSubscribe(data[0].argentina_subscribe);
+      setBoliviaSubscribe(data[0].bolivia_subscribe);
+      setChileSubscribe(data[0].chile_subscribe);
+      setColombiaSubscribe(data[0].colombia_subscribe);
+      setCostaRicaSubscribe(data[0].costarica_subscribe);
+      setCubaSubscribe(data[0].cuba_subscribe);
+      setDominicanRepublicSubscribe(data[0].dominicanrepublic_subscribe);
+      setEcuadorSubscribe(data[0].ecuador_subscribe);
+      setElSalvadorSubscribe(data[0].elsalvador_subscribe);
+      setGuatemalaSubscribe(data[0].guatemala_subscribe);
+      setHondurasSubscribe(data[0].honduras_subscribe);
+      setMexicoSubscribe(data[0].mexico_subscribe);
+      setNicaraguaSubscribe(data[0].nicaragua_subscribe);
+      setPanamaSubscribe(data[0].panama_subscribe);
+      setParaguaySubscribe(data[0].paraguay_subscribe);
+      setPeruSubscribe(data[0].peru_subscribe);
+      setPuertoRicoSubscribe(data[0].puertorico_subscribe);
+      setUruguaySubscribe(data[0].uruguay_subscribe);
+      setVenezuelaSubscribe(data[0].venezuela_subscribe);
+    }
+  }
+  };
+
+  fetchPreferences();
+}, []);
+  
 
     return (
       <div>
             <section class="app">
   <h1>Select <span class="blue-color">your favorite countries</span></h1>
   <h3 class="gray-color">Choose the countries you want to see the summaries for</h3>
+
 <div className="section">
-  <article  class="feature1">
+
+  <article>
     <input onChange={(event) => {
         setArgentinaSubscribe(event.target.checked);
-      }} type="checkbox" checked={argentinaSubscribe} id="feature1"/>
+      }} type="checkbox" checked={argentinaSubscribe} />
     <div>
-      <span>
-       Argentina
-      </span>
+      Argentina
     </div>
   </article>
   
-  <article class="feature2">
-    <input type="checkbox" id="feature2"/>
+  <article>
+    <input onChange={(event) => {
+        setBoliviaSubscribe(event.target.checked);
+      }} type="checkbox" checked={boliviaSubscribe} />
     <div>
-      <span>
         Bolivia
-      </span>
     </div>
   </article>
   
-  <article class="feature3">
-    <input type="checkbox" id="feature3"/>
+  <article>
+    <input onChange={(event) => {
+        setChileSubscribe(event.target.checked);
+      }} type="checkbox" checked={chileSubscribe} />
     <div>
-      <span>
-  Chile
-      </span>
-    </div>
-  </article>
-  
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
-    <div>
-      <span>
-       Colombia
-      </span>
+        Chile
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setColombiaSubscribe(event.target.checked);
+      }} type="checkbox" checked={colombiaSubscribe} />
     <div>
-      <span>
-       Costa Rica
-      </span>
-    </div>
-  </article>
- 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
-    <div>
-      <span>
-       Cuba
-      </span>
+        Colombia
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setCostaRicaSubscribe(event.target.checked);
+      }} type="checkbox" checked={costaRicaSubscribe} />
     <div>
-      <span>
-       Dominican Republic
-      </span>
+        Costa Rica
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setCubaSubscribe(event.target.checked);
+      }} type="checkbox" checked={cubaSubscribe} />
     <div>
-      <span>
-       Ecuador
-      </span>
+  Cuba        
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setDominicanRepublicSubscribe(event.target.checked);
+      }} type="checkbox" checked={dominicanRepublicSubscribe} />
     <div>
-      <span>
-       El Salvador
-      </span>
+        Dominican Republic
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setEcuadorSubscribe(event.target.checked);
+      }} type="checkbox" checked={ecuadorSubscribe} />
     <div>
-      <span>
-       Guatemala
-      </span>
+        Ecuador
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setElSalvadorSubscribe(event.target.checked);
+      }} type="checkbox" checked={elSalvadorSubscribe} />
     <div>
-      <span>
-Honduras
-      </span>
+        El Salvador
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setGuatemalaSubscribe(event.target.checked);
+      }} type="checkbox" checked={guatemalaSubscribe} />
     <div>
-      <span>
-       Mexico
-      </span>
+        Guatemala
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setHondurasSubscribe(event.target.checked);
+      }} type="checkbox" checked={hondurasSubscribe} />
     <div>
-      <span>
-Nicaragua
-      </span>
+        Honduras
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setMexicoSubscribe(event.target.checked);
+      }} type="checkbox" checked={mexicoSubscribe} />
     <div>
-      <span>
-Panama
-      </span>
+        Mexico
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setNicaraguaSubscribe(event.target.checked);
+      }} type="checkbox" checked={nicaraguaSubscribe} />
     <div>
-      <span>
-Paraguay
-      </span>
+        Nicaragua
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setPanamaSubscribe(event.target.checked);
+      }} type="checkbox" checked={panamaSubscribe} />
     <div>
-      <span>
-Peru
-      </span>
+        Panama
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setParaguaySubscribe(event.target.checked);
+      }} type="checkbox" checked={paraguaySubscribe} />
     <div>
-      <span>
-Puerto Rico
-      </span>
+        Paraguay
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setPeruSubscribe(event.target.checked);
+      }} type="checkbox" checked={peruSubscribe} />
     <div>
-      <span>
-Uruguay
-      </span>
+        Peru
     </div>
   </article>
 
-  <article class="feature1">
-    <input type="checkbox" id="feature1"/>
+  <article>
+    <input onChange={(event) => {
+        setPuertoRicoSubscribe(event.target.checked);
+      }} type="checkbox" checked={puertoRicoSubscribe} />
     <div>
-      <span>
-Venezuela
-      </span>
+        Puerto Rico
     </div>
   </article>
+
+  <article>
+    <input onChange={(event) => {
+        setUruguaySubscribe(event.target.checked);
+      }} type="checkbox" checked={uruguaySubscribe} />
+    <div>
+        Uruguay
+    </div>
+  </article>
+
+  <article>
+    <input onChange={(event) => {
+        setVenezuelaSubscribe(event.target.checked);
+      }} type="checkbox" checked={venezuelaSubscribe} />
+    <div>
+        Venezuela
+    </div>
+  </article>
+
   </div>
 
 </section>
 
 <section>
 
-<div>
-  <h3>
-    <span class="blue-color">Do it now </span>Yes. Do IT!
-  </h3>
-  </div>
-  <a href="#" class="upgrade-btn">Submit</a>
-  
+  <form onSubmit={submitPreferences()}>
+  <a href="#" class="upgrade-btn" type="submit">Submit</a>
+  </form>
 </section>
 </div>
       

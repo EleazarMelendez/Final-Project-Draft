@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-import GoBackButton from "./GoBackButton";
-import { render } from "react-dom";
-import Loader from "./Loader";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import SummaryCard from "./SummaryCard";
 
 export default function ContentCards({ countryState, onCountryStateChange }) {
-  const [summaries, setSummaries] = useState([]);
 
   const [introCardOpen, setIntroCardOpen] = useState(true);
   const [howCardOpen, setHowCardOpen] = useState(true);
@@ -25,17 +17,12 @@ export default function ContentCards({ countryState, onCountryStateChange }) {
     setWarningCardOpen(!warningCardOpen);
   };
 
-  const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    setShowLoader(true);
-  }, [countryState]);
-
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 600) {
         setIntroCardOpen(false);
         setWarningCardOpen(false);
+        setHowCardOpen(false);
       }
     }
     handleResize(); 
@@ -43,40 +30,7 @@ export default function ContentCards({ countryState, onCountryStateChange }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []); 
 
-  const renderSummaryCard = () => {
-    if (countryState === "") {
-      return <div></div>;
-    } else if (showLoader) {
-      return (
-        <div className="loader-container">
-          <Loader />
-          {setTimeout(() => setShowLoader(false), 4000)}
-        </div>
-      );
-    } else {
-      return (
-        <div className="main-container">
-          <div className="goback-adjust">
-            <GoBackButton
-              countryState={countryState}
-              onBlankButtonClick={() => onCountryStateChange("")}
-            />
-          </div>
-          <div class="card-2 diagonal-gridlines">
-            <div class="card_title">
-              Below is an AI-generated summary of what's being published by the
-              newspapers in {country}
-            </div>
-            <div class="separator"></div>
-            <div class="card_content">
-              <p>{summary}</p>
-            </div>
-          </div>
-        </div>
-      );
-    }
-  };
-
+ 
   const renderIntro = () => {
     if (countryState !== "") {
       return <div></div>;
@@ -193,27 +147,12 @@ export default function ContentCards({ countryState, onCountryStateChange }) {
     }
   };
 
-  useEffect(() => {
-    getSummaries();
-  }, []);
 
-  async function getSummaries() {
-    const { data } = await supabase
-      .from("ClusteredArticles")
-      .select("article_summary, country");
-    setSummaries(data);
-  }
-
-  const country = countryState; // the country you're interested in
-
-  const summary = summaries.find(
-    (obj) => obj.country === country
-  )?.article_summary;
 
   return (
     <div>
       {renderIntro()}
-      {renderSummaryCard()}
+      <SummaryCard countryState={countryState} onCountryStateChange={onCountryStateChange}/>
     </div>
   );
 }

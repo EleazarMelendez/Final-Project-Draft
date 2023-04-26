@@ -1300,8 +1300,8 @@ main footer .secondary-links .social li > a:hover {
 article {
   position: relative;
   height: 30px;
-  margin: 5px;
-  padding: 5px;
+  width: 175px;
+  margin: 10px;
   float: left;
   color:white;
   border-radius: 50px;
@@ -1309,20 +1309,17 @@ article {
 }
 
 article div {
-  width: 100%;
+  border-radius: 50px;
   height: 100%;
-  display: flex;
-  justify-content:space-between;
-  align-items:self-end;
-  line-height: 25px;
+  width:100%;
+  text-align: center;
+  justify-content: center;
   transition: .5s ease;
 }
 
 article input {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 140px;
+  width: 100%;
   height: 100px;
   opacity: 0;
   cursor: pointer;
@@ -1343,10 +1340,12 @@ input[type=checkbox]:checked ~ div {
   font-weight: 600;
   text-decoration: none;
   transition: .3s ease;
+  text-align: center;
 }
 
 .upgrade-btn:hover {
   background-color: #50bcf2;
+  color: black;
 }
 
 .blue-color {
