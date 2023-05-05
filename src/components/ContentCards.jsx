@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SummaryCard from "./SummaryCard";
+import GoBackButton from "./GoBackButton";
 
 export default function ContentCards({ countryState, onCountryStateChange }) {
 
@@ -95,7 +96,7 @@ export default function ContentCards({ countryState, onCountryStateChange }) {
                       reported in that country's newspapers here, as well as
                       additional information on first-hand sources <br></br>
                       <br></br>
-                      You can also log-in <a>here</a> to see the summaries of
+                      You can also <a href="/dashboard">log-in here</a> to see the summaries of
                       multiple countries at the same time and customize
                       settings.
                     </div>
@@ -152,7 +153,8 @@ export default function ContentCards({ countryState, onCountryStateChange }) {
   return (
     <div>
       {renderIntro()}
-      <SummaryCard countryState={countryState} onCountryStateChange={onCountryStateChange}/>
+      <GoBackButton countryState={countryState} onBlankButtonClick={() => onCountryStateChange("")} />
+      <SummaryCard countryState={countryState} />
     </div>
   );
 }

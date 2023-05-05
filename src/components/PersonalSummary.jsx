@@ -6,8 +6,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default function SummaryCard ({countryState}) {
-    const [showLoader, setShowLoader] = useState(true);
+export default function PersonalSummary ({countryState}) {
     const [summaries, setSummaries] = useState([]);
 
     const summary = summaries.find(
@@ -25,21 +24,6 @@ export default function SummaryCard ({countryState}) {
         getSummaries();
       }, []);
     
-      
-    useEffect(() => {
-      setShowLoader(true);
-    }, [countryState]);
-  
-    if (countryState === "") {
-      return <div></div>;
-    } else if (showLoader) {
-      return (
-        <div className="loader-container">
-          <Loader />
-          {setTimeout(() => setShowLoader(false), 4000)}
-        </div>
-      );
-    } else {
       return (
         <div className="main-container">
           <div class="card-2 diagonal-gridlines">
@@ -51,7 +35,7 @@ export default function SummaryCard ({countryState}) {
               <p>{summary}</p>
             </div>
           </div>
+          <br></br>
         </div>
       );
-    }
-  };
+    };

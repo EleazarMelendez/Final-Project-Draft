@@ -1282,13 +1282,19 @@ main footer .secondary-links .social li > a:hover {
 }
 
 .app {
-  max-width: 75%;
+  max-width: 70%;
   margin: 0 auto;
+  text-align: center;
 }
 
 .section
 {
   width: 100%;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .slide {
@@ -1301,11 +1307,11 @@ article {
   position: relative;
   height: 30px;
   width: 175px;
-  margin: 10px;
+margin: 5px;
   float: left;
   color:white;
   border-radius: 50px;
-  border: 2px solid #50bcf2;
+
 }
 
 article div {
@@ -1315,6 +1321,7 @@ article div {
   text-align: center;
   justify-content: center;
   transition: .5s ease;
+  border: 2px solid #50bcf2;
 }
 
 article input {
@@ -1330,17 +1337,20 @@ input[type=checkbox]:checked ~ div {
 }
 
 .upgrade-btn {
+
   margin: 30px auto;
-  width: 200px;
+  margin:auto;
+  width: 95%;
   padding: 10px 20px;
   border: 2px solid #50bcf2;
   border-radius: 50px;
   color: #f5f5f5;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   text-decoration: none;
   transition: .3s ease;
   text-align: center;
+  margin-top: 50px;
 }
 
 .upgrade-btn:hover {
@@ -1353,7 +1363,7 @@ input[type=checkbox]:checked ~ div {
 }
 
 .gray-color {
-  color: #555;
+  color: white;
 }
 
 
@@ -1375,7 +1385,36 @@ input[type=checkbox]:checked ~ div {
 
 .login-container {
   color: white;
-  margin-top: 12%;
+  margin-top: 120px;
   margin-left: 12%;
-  margin-right:12%
+  margin-right:12%;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.login-container label {
+  color:skyblue;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 10;
+  background: transparent;
+  color: #fff;
+  letter-spacing: 0.05em;
+  font-size: 16px;
+}
+
+.login-container button {
+  margin-top: 50px;
+  width: 100%;
+  background-color: #ffffff;
+  color:skyblue;
+  padding: 15px 0;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
 }
